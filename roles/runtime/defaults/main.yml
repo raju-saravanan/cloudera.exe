@@ -25,6 +25,10 @@ run__namespace_cdp:                 "{{ common__namespace_cdp }}"
 run__env_name:                      "{{ common__env_name }}"
 run__datalake_name:                 "{{ common__datalake_name }}"
 run__vpc_name:                      "{{ common__vpc_name }}"
+run__vpc_public_subnets_suffix:     "{{ common__vpc_public_subnets_suffix }}"
+run__vpc_private_subnets_suffix:    "{{ common__vpc_private_subnets_suffix }}"
+run__vpc_public_subnets_name:       "{{ [run__namespace, run__vpc_public_subnets_suffix] | join('-') }}*"
+run__vpc_private_subnets_name:      "{{ [run__namespace, run__vpc_private_subnets_suffix] | join('-') }}*"
 
 run__gcp_project:                   "{{ common__gcp_project }}"
 
@@ -52,7 +56,11 @@ run__ml_k8s_request_base:           "{{ ml.k8s_request_base | default(lookup('te
 run__ml_tags:                       "{{ ml.tags | default(common__tags) }}"
 
 run__dw_definitions:                "{{ dw.definitions | default([{}]) }}"
-run__dw_suffix:                     "{{ dw.suffix | default('dw') }}"
+run__dw_suffix:                     "{{ dw.suffix | default('vwh') }}"
+run__dw_tags:                       "{{ dw.tags | default(common__tags) }}"
+run__dw_overlay_network:            "{{ dw.overlay_network | bool }}"
+run__dw_private_load_balancer:      "{{ dw.private_load_balancer | bool }}"
+run__dw_private_worker_nodes:       "{{ dw.private_worker_nodes | bool }}"
 
 run__df_nodes_min:                  "{{ df.min_k8s_nodes | default(3) }}"
 run__df_nodes_max:                  "{{ df.max_k8s_nodes | default(5) }}"

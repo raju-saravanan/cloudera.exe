@@ -40,14 +40,16 @@
     - name: Execute CDP DW cluster setup
       cloudera.cloud.dw_cluster:
         env: "{{ run__env_name }}"
-        overlay: no
-        # TODO - Allow direct assignment (will need to coordinate with infra role)
-        aws_public_subnets: "{{ run__datahub_subnet_ids[:3] }}"
-        aws_private_subnets: []
+        overlay: "{{ run__dw_overlay_network }}"
+        private_load_balancer: "{{ run__dw_private_load_balancer }}"
+        #  TODO - Allow direct assignment (will need to coordinate with infra role)
+        aws_public_subnets: "{{ run__datahub_public_subnet_ids }}"
+        aws_private_subnets: "{{ run__datahub_private_subnet_ids }}"
         state: present
         wait: yes
       async: 3600 # 1 hour timeout
       poll: 0
+
       register: __dw_builds
 
     - name: Wait for CDP DW cluster setup to complete

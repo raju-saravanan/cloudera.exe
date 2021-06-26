@@ -32,6 +32,8 @@ run__vpc_private_subnets_name:      "{{ [run__namespace, run__vpc_private_subnet
 
 run__public_endpoint_access:        "{{ common__public_endpoint_access }}"
 
+run__public_endpoint_access:        "{{ common__public_endpoint_access }}"
+
 run__gcp_project:                   "{{ common__gcp_project }}"
 
 run__datahub_image_catalog_url:     "{{ datahub.image_catalog.url | default('https://cloudbreak-imagecatalog.s3.amazonaws.com/v3-prod-cb-image-catalog.json') }}"
